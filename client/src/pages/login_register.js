@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FormValidator from "../utils/FormValidator";
 
-class Signup extends Component {
+class Login_Register extends Component {
   constructor() {
     super();
 
@@ -126,4 +126,4 @@ fetch('http://localhost:5000/create', {
     )
   }
 }
-export default Signup;
+export default Login_Register;
