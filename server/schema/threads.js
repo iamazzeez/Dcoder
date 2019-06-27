@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const Threads = new Schema({
+  _id: ObjectId,
   title: {
     type: String,
     required: true,
