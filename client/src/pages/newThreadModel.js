@@ -78,10 +78,6 @@ export default class CreateThreadModel extends React.Component {
             <Modal.Header closeButton>
               <Modal.Title>Create New Thread</Modal.Title>
             </Modal.Header>
-            {/* <Modal.Body>
-                <h6>Title</h6>
-                <p>{this.state.submitComment}</p>
-                </Modal.Body> */}
             <form className="form-group container" >    
             <label className="form-label" for="inputDefault">Title</label>
             <input  type="text"
