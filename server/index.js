@@ -4,8 +4,8 @@ const cors = require('cors');
 var app = express();
 var port = process.env.PORT || 5000;
 const bodyParser = require("body-parser");
-const controller = require("./controller");
-const UserModel = require('./schema/user')
+const controller = require("./api/controller");
+const UserModel = require('./api/schema/user')
 app.use(bodyParser.urlencoded({
     extended: true
 }));

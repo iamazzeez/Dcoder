@@ -15,9 +15,13 @@ const Threads = new Schema({
   tags: {
     type: Array
   },
+  email: {
+    type: String
+  },
   username: {
     type: ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
 },
   date: {
     type: Date,

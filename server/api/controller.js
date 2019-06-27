@@ -50,9 +50,8 @@ app.post("/register", (req, res, next) => {
 
 
 //Login user
-
 app.post("/login", (req, res, next) => {
-  User.find({ email: req.body.email })
+  UserModel.find({ email: req.body.email })
     .exec()
     .then(user => {
       if (user.length < 1) {
@@ -72,14 +71,16 @@ app.post("/login", (req, res, next) => {
               email: user[0].email,
               userId: user[0]._id
             },
-            process.env.JWT_KEY,
+            'mykey123',
             {
                 expiresIn: "10h"
             }
           );
           return res.status(200).json({
             message: "Auth successful",
-            token: token
+            token: token,
+            email: user[0].email,
+            userId: user[0]._id
           });
         }
         res.status(401).json({
@@ -97,11 +98,14 @@ app.post("/login", (req, res, next) => {
 
 //Create Thread
 
-app.post('/api/thread', (req,res, next) => {
+app.post('/api/threads', verifyToken, (req,res, next) => {
   const thread = new Threads({
       title: req.body.title,
       description: req.body.description,
       tags: req.body.tags,
+      email: req.body.email,
+      username: req.body.userId
+  
   })
    thread.save()
    .then(result =>  res.send(result))
@@ -109,14 +113,10 @@ app.post('/api/thread', (req,res, next) => {
       
 })
   
-  app.get('/api', (req, res) => {
-    res.json({
-      message: 'Welcome to the API'
-    });
-  });
-  
-  app.post('/api/posts', verifyToken, (req, res) => {  
-    jwt.verify(req.token, 'secretkey', (err, authData) => {
+
+  //Get all threads 
+  app.get('/api/threads', verifyToken, (req, res) => {  
+    jwt.verify(req.token, 'mykey123', (err, authData) => {
       if(err) {
         res.sendStatus(403);
       } else {
@@ -128,20 +128,7 @@ app.post('/api/thread', (req,res, next) => {
     });
   });
   
-  app.post('/api/login', (req, res) => {
-    // Mock user
-    const user = {
-      id: 1, 
-      username: 'azzeez',
-      email: 'azzz@gmail.com'
-    }
-  
-    jwt.sign({user}, 'secretkey', { expiresIn: '30s' }, (err, token) => {
-      res.json({
-        token
-      });
-    });
-  });
+ 
   
   // FORMAT OF TOKEN
   // Authorization: Bearer <access_token>
