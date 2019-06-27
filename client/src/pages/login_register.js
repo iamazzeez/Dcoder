@@ -90,7 +90,7 @@ fetch('http://localhost:5000/create', {
     return (
       <div className="container"style={{maxWidth: '25rem'}} >
       <form className="demoForm">
-        <h2  className='dispaly-4 my-3 text-center' >Login/Register</h2>
+        <h2  className='dispaly-3 my-4 text-center' >Login/Register</h2>
 
        
         <div className={validation.email.isInvalid && 'has-error'}>
@@ -113,7 +113,7 @@ fetch('http://localhost:5000/create', {
         </div>
 
         <br/>
-        <div  style={{display: 'flex', justifyContent: "space-around"}}>
+        <div className='m-4' style={{display: 'flex', justifyContent: "space-around"}}>
         <button onClick={this.handleFormSubmit} className="btn btn-primary">
           Login
         </button>

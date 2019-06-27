@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router,  NavLink, Switch, Route} from 'react-router-dom';
 
 import Login_Register from "./pages/login_register";
+import Threads from './pages/threads';
 
 
 class App extends Component {
@@ -27,6 +28,8 @@ class App extends Component {
   
       <Switch>
         <Route path="/" exact strict component={Login_Register} />
+        <Route path="/threads" exact strict component={Threads} />
+        
 
         </Switch>
   </div>
