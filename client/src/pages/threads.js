@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import "./floatingButton.css"
+import CreateThreadModel from './newThreadModel';
 
 export default class Threads extends Component {
     render() {
@@ -14,13 +15,9 @@ export default class Threads extends Component {
                 <p> <span class="badge badge-pill badge-info">Info</span></p>
                 <p> <span class="badge badge-secondary">Secondary</span></p>
                 </div>
-               
-
              </div>
             </div>
-            <button className="btn pmd-btn-fab pmd-ripple-effect btn-primary app-fab--absolute" type="button">
-    <i class="material-icons pmd-sm">add</i>
-    </button>
+          <CreateThreadModel />
             </div>
         )
     }
