@@ -4,7 +4,7 @@ Task
 
 ## Live Demo
 
-Click this link to see demo of client application [View Demo](https://dcoder-client.herokuapp.com/).
+Click this link to see demo of fully functional application [View Demo](https://dcoder-client.herokuapp.com/).
 
 
 ## Clone  
