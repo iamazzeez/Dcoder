@@ -89,7 +89,7 @@ export default class CreateThreadModel extends React.Component {
 
         if (validation.isValid) {
       e.preventDefault()
-      fetch('http://localhost:5000/threads', {
+      fetch('http://localhost:8080/threads', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
