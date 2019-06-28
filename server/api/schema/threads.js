@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const Threads = new Schema({
-  _id: ObjectId,
   title: {
     type: String,
     required: true,
@@ -24,9 +23,9 @@ const Threads = new Schema({
     required: true
 },
   date: {
-    type: Date,
+    type: String,
     // `Date.now()` returns the current unix timestamp as a number
-    default: Date.now
+    default: new Date().toLocaleString()
   }
 
 });

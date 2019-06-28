@@ -97,7 +97,6 @@ app.post("/login", (req, res, next) => {
 });
 
 //Create Thread
-
 app.post('/threads', verifyToken, (req,res, next) => {
   const thread = new Threads({
       title: req.body.title,
@@ -116,15 +115,13 @@ app.post('/threads', verifyToken, (req,res, next) => {
 
   //Get all threads 
   app.get('/threads', verifyToken, (req, res) => {  
-    jwt.verify(req.token, 'mykey123', (err, authData) => {
-      if(err) {
-        res.sendStatus(403);
-      } else {
-        res.json({
-          message: 'Post created...',
-          authData
-        });
-      }
+  
+    Threads.find()
+    .then(threads => {
+      res.json(threads);
+    })
+    .catch(error => {
+      res.json(error);
     });
   });
   

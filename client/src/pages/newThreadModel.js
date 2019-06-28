@@ -114,6 +114,7 @@ export default class CreateThreadModel extends React.Component {
           tags: [],
     });
     this.handleClose()
+    window.location.reload();
       }
     }
     render() {
