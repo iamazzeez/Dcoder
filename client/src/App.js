@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Redirect, NavLink, Switch, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Switch, Route} from 'react-router-dom';
 
 import Login_Register from "./pages/login_register";
 import Threads from './pages/threads';
@@ -14,11 +14,17 @@ class App extends Component {
   }
   login = (token, userId, email) => {
     this.setState({
-     token: token, userId: userId, email: email
+     token: localStorage.getItem('token'), 
+     userId: localStorage.getItem('userId'), 
+     email: localStorage.getItem('email')
+
     })
   }
 
   logout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('userId')
+    localStorage.removeItem('email')
      this.setState({
       token: null,
      userId: null,
@@ -28,6 +34,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(localStorage.getItem('token'))
     return (
       <Router>
         <AuthContext.Provider 
@@ -41,9 +48,11 @@ class App extends Component {
    <div>
        <MainNavbar />
       <Switch>
-        {!this.state.token && <Redirect from="/" to="/auth" exact />}
+        {!localStorage.getItem('token') && <Redirect from="/" to="/auth" exact />}
+        {localStorage.getItem('token') && <Redirect from="/" to="/threads" exact />}
+        {localStorage.getItem('token') && <Redirect from="/auth" to="/threads" exact />}
         <Route path="/auth" exact strict component={Login_Register} />
-        <Route path="/threads" exact strict component={Threads} />
+        {localStorage.getItem('token') && <Route path="/threads" exact strict component={Threads} />}
         </Switch>
   </div>
   </AuthContext.Provider>

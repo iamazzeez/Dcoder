@@ -35,6 +35,7 @@ class Login_Register extends Component {
       email: '',
       password: '',
       validation: this.validator.valid(),
+      registerMessage: '',
     }
 
     this.submitted = false;
@@ -47,7 +48,7 @@ class Login_Register extends Component {
       [event.target.name]: event.target.value,
     });
   }
-    
+    //Login
   handleLogin = event => {
     event.preventDefault();
 
@@ -57,7 +58,7 @@ class Login_Register extends Component {
 
     if (validation.isValid) {
       // handle actual form submission here
-      console.log(this.state.email, this.state.name, this.state.username, this.state.password)
+      console.log(this.state.email, this.state.password)
 
       const requestBody = {           
         email: this.state.email,
@@ -73,12 +74,72 @@ fetch('http://localhost:5000/login', {
   }
 }).then(res => {
   if(res.status !== 200 && res.status !== 201){
+    this.setState({
+      registerMessage: 'Auth Failed'
+    }) 
     throw new Error('Failed!')
+    
   } 
   res.json().then(resData => {
  if(resData.token)
-   this.context.login(resData.token, resData.userId, resData.email)
-  console.log(resData.email);
+  
+  localStorage.setItem('token', resData.token)
+  localStorage.setItem('email', resData.email)
+  localStorage.setItem('userId', resData.userId)
+  this.context.login(resData.token, resData.userId, resData.email)
+  this.setState({
+    registerMessage: 'Auth Successful'
+  }) 
+})
+})
+.catch(err => {
+  console.log(err)
+}) 
+
+    }
+  }
+
+  //Register
+  handleRegister = event => {
+    event.preventDefault();
+
+    const validation = this.validator.validate(this.state);
+    this.setState({ validation });
+    this.submitted = true;
+
+    if (validation.isValid) {
+      // handle actual form submission here
+      console.log(this.state.email, this.state.password)
+
+      const requestBody = {           
+        email: this.state.email,
+        password: this.state.password
+        }
+       
+fetch('http://localhost:5000/register', {
+  method: 'POST',
+  body: JSON.stringify(requestBody),
+  headers: {
+    'Content-Type': 'application/json',
+
+  }
+}).then(res => {
+  if(res.status === 409){
+    this.setState({
+      registerMessage: 'Mail Exists'
+    }) 
+  } else
+  if(res.status !== 200 && res.status !== 201){
+    this.setState({
+      registerMessage: 'Failed'
+    })
+    throw new Error('Failed!')
+    
+  }  else
+  res.json().then(resData => {
+    this.setState({
+      registerMessage: 'User Created Please Login to Continue'
+    })
 })
 })
 .catch(err => {
@@ -128,6 +189,7 @@ fetch('http://localhost:5000/login', {
         </button>
         </div>
       </form>
+      <h6 className="text-center text-danger">{this.state.registerMessage}</h6>
       </div>
     )
   }

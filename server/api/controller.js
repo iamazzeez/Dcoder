@@ -98,7 +98,7 @@ app.post("/login", (req, res, next) => {
 
 //Create Thread
 
-app.post('/api/threads', verifyToken, (req,res, next) => {
+app.post('/threads', verifyToken, (req,res, next) => {
   const thread = new Threads({
       title: req.body.title,
       description: req.body.description,
@@ -115,7 +115,7 @@ app.post('/api/threads', verifyToken, (req,res, next) => {
   
 
   //Get all threads 
-  app.get('/api/threads', verifyToken, (req, res) => {  
+  app.get('/threads', verifyToken, (req, res) => {  
     jwt.verify(req.token, 'mykey123', (err, authData) => {
       if(err) {
         res.sendStatus(403);
