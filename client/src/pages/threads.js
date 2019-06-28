@@ -2,10 +2,28 @@ import React, { Component } from 'react'
 import "./floatingButton.css"
 import CreateThreadModel from './newThreadModel';
 
+
 export default class Threads extends Component {
     state = {
-        data: ''
+        data: '',
+        search: '',
+        filteredTitles: '',
         }
+
+
+    
+  
+        onChangeSearch = (e) => {
+          let filteredTitles =   Object.values(this.state.data).filter(thread =>{
+              return  thread.title.indexOf(this.state.search) !== -1
+          })
+           this.setState({
+               search: e.target.value,
+               filteredTitles : filteredTitles
+           })
+        }
+    
+  
     componentDidMount(){
         this.getAll()
           
@@ -37,7 +55,7 @@ export default class Threads extends Component {
                       }
                     
                      console.log(data)
-                        return this.setState({ data: data })
+                        return this.setState({ data: data, filteredTitles: data })
                     
                   
                     })
@@ -48,7 +66,16 @@ export default class Threads extends Component {
     render() {
         return (
             <div className="container ">
-                 {Object.values(this.state.data).map(thread => ( 
+                {/* <Search data={this.state.data} /> */}.
+                <div className="container m-2" style={{maxWidth: "30rem"}}>
+                <input className="form-control mr-sm-2" 
+                type="text" 
+                placeholder="Search Titles"
+                value={this.state.search}
+                onChange={this.onChangeSearch.bind(this)}
+                ></input>
+            </div>
+                 {Object.values(this.state.filteredTitles).map(thread => ( 
                 <div className="card border-secondary m-4" style={{maxWidth : "60rem"}}>
                 <div className="card-body">
                 <h4 className="card-title"> {thread.title} </h4>
