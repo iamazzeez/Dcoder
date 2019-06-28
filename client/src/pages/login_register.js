@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import FormValidator from "../utils/FormValidator";
+import AuthContext from "../utils/auth-context";
+
 
 class Login_Register extends Component {
+
+   static contextType = AuthContext;
+
   constructor() {
     super();
 
@@ -43,7 +48,7 @@ class Login_Register extends Component {
     });
   }
     
-  handleFormSubmit = event => {
+  handleLogin = event => {
     event.preventDefault();
 
     const validation = this.validator.validate(this.state);
@@ -59,7 +64,7 @@ class Login_Register extends Component {
         password: this.state.password
         }
        
-fetch('http://localhost:5000/create', {
+fetch('http://localhost:5000/login', {
   method: 'POST',
   body: JSON.stringify(requestBody),
   headers: {
@@ -71,8 +76,9 @@ fetch('http://localhost:5000/create', {
     throw new Error('Failed!')
   } 
   res.json().then(resData => {
-  alert('User created')
-  console.log(resData);
+ if(resData.token)
+   this.context.login(resData.token, resData.userId, resData.email)
+  console.log(resData.email);
 })
 })
 .catch(err => {
@@ -114,10 +120,10 @@ fetch('http://localhost:5000/create', {
 
         <br/>
         <div className='m-4' style={{display: 'flex', justifyContent: "space-around"}}>
-        <button onClick={this.handleFormSubmit} className="btn btn-primary">
+        <button onClick={this.handleLogin} className="btn btn-primary">
           Login
         </button>
-        <button onClick={this.handleFormSubmit} className="btn btn-primary">
+        <button onClick={this.handleRegister} className="btn btn-primary">
           Register
         </button>
         </div>
