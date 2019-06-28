@@ -33,7 +33,8 @@ export default class Threads extends Component {
       
       
           getAll = () => {
-              fetch('http://localhost:8080/threads', {
+            //Localhost endpoint http://localhost:8080/
+              fetch('http://34.93.54.35:8080/threads', {
                   method: 'GET',
                   body: null,
                   headers: {

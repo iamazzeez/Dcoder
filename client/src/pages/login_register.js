@@ -64,8 +64,9 @@ class Login_Register extends Component {
         email: this.state.email,
         password: this.state.password
         }
-       
-fetch('http://localhost:8080/login', {
+ //Kubernetes endpoint http://34.93.54.35:8080/
+ //Localhost endpoint http://localhost:8080/
+ fetch('http://34.93.54.35:8080/login', {
   method: 'POST',
   body: JSON.stringify(requestBody),
   headers: {
@@ -115,8 +116,8 @@ fetch('http://localhost:8080/login', {
         email: this.state.email,
         password: this.state.password
         }
-       
-fetch('http://localhost:8080/register', {
+//Localhost endpoint http://localhost:8080/
+fetch('http://34.93.54.35:8080/register', {
   method: 'POST',
   body: JSON.stringify(requestBody),
   headers: {
