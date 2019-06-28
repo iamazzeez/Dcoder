@@ -17,6 +17,7 @@ export default class Threads extends Component {
           let filteredTitles =   Object.values(this.state.data).filter(thread =>{
               return  thread.title.indexOf(this.state.search) !== -1
           })
+    
            this.setState({
                search: e.target.value,
                filteredTitles : filteredTitles
@@ -26,6 +27,7 @@ export default class Threads extends Component {
   
     componentDidMount(){
         this.getAll()
+
           
           }
       
@@ -64,6 +66,7 @@ export default class Threads extends Component {
           }
 
     render() {
+       
         return (
             <div className="container ">
                 {/* <Search data={this.state.data} /> */}.
