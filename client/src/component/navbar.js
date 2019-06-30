@@ -18,7 +18,7 @@ export default class MainNavbar extends Component {
               <h4 className="navbar-brand">Dcoder</h4>
               {localStorage.getItem('token') && (
                 <button
-                  className="btn btn-danger my-2 my-sm-0"
+                  className="btn btn-danger"
                   onClick={this.handelLogout}
                   type="submit"
                 >
