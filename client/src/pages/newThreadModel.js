@@ -1,6 +1,6 @@
-import React from 'react';
-import { Modal } from 'react-bootstrap';
-import FormValidator from '../utils/FormValidator';
+import React from "react";
+import { Modal } from "react-bootstrap";
+import FormValidator from "../utils/FormValidator";
 
 export default class CreateThreadModel extends React.Component {
   constructor(props, context) {
@@ -15,35 +15,35 @@ export default class CreateThreadModel extends React.Component {
 
     this.validator = new FormValidator([
       {
-        field: 'title',
-        method: 'isEmpty',
+        field: "title",
+        method: "isEmpty",
         validWhen: false,
-        message: 'Title is required.',
+        message: "Title is required."
       },
       {
-        field: 'description',
-        method: 'isEmpty',
+        field: "description",
+        method: "isEmpty",
         validWhen: false,
-        message: 'Description is required',
+        message: "Description is required"
       },
       {
-        field: 'tags',
-        method: 'isEmpty',
+        field: "tags",
+        method: "isEmpty",
         validWhen: false,
-        message: 'Tag is required.',
-      },
+        message: "Tag is required."
+      }
     ]);
 
     this.submitted = false;
 
     this.state = {
       show: false,
-      title: '',
-      description: '',
+      title: "",
+      description: "",
       tags: [],
       validation: this.validator.valid(),
-      email: localStorage.getItem('email'),
-      userId: localStorage.getItem('userId'),
+      email: localStorage.getItem("email"),
+      userId: localStorage.getItem("userId")
     };
   }
 
@@ -57,19 +57,19 @@ export default class CreateThreadModel extends React.Component {
 
   onChangeTitle = event => {
     this.setState({
-      title: event.target.value,
+      title: event.target.value
     });
   };
 
   onChangeDescription = event => {
     this.setState({
-      description: event.target.value,
+      description: event.target.value
     });
   };
 
   onChangeTags = event => {
     this.setState({
-      tags: event.target.value,
+      tags: event.target.value
     });
   };
 
@@ -84,23 +84,23 @@ export default class CreateThreadModel extends React.Component {
       description: this.state.description,
       tags: this.state.tags,
       email: this.state.email,
-      userId: this.state.userId,
+      userId: this.state.userId
     };
 
     if (validation.isValid) {
       e.preventDefault();
       // Localhost endpoint http://localhost:8080/
-      fetch('http://34.93.54.35:8080/threads', {
-        method: 'POST',
+      fetch("http://localhost:8080/threads", {
+        method: "POST",
         body: JSON.stringify(data),
         headers: {
-          'Content-Type': 'application/json',
-          authorization: localStorage.getItem('token'),
-        },
+          "Content-Type": "application/json",
+          authorization: localStorage.getItem("token")
+        }
       })
         .then(res => {
           if (res.status !== 200 && res.status !== 201) {
-            throw new Error('Failed!');
+            throw new Error("Failed!");
           }
           res.json().then(resData => {
             console.log(resData);
@@ -111,9 +111,9 @@ export default class CreateThreadModel extends React.Component {
         });
 
       this.setState({
-        title: '',
-        description: '',
-        tags: [],
+        title: "",
+        description: "",
+        tags: []
       });
       this.handleClose();
       window.location.reload();
@@ -126,7 +126,7 @@ export default class CreateThreadModel extends React.Component {
       description: this.state.description,
       tags: this.state.tags,
       email: this.state.email,
-      userId: this.state.userId,
+      userId: this.state.userId
     });
 
     const validation = this.submitted // if the form has been submitted at least once
